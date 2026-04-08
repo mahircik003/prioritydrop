@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# PriorityDrop
 
-# Run and deploy your AI Studio app
+A monetized inbox for creators. Senders pay to send you a message — you reply within 48 hours and get paid. If you don't reply, the payment is never captured.
 
-This contains everything you need to run your app locally.
+## How it works
 
-View your app in AI Studio: https://ai.studio/apps/cc74387d-3596-4657-94fa-50c5e1e49134
+1. Creators sign up and get a public link (`yourdomain.com/yourname`)
+2. Senders visit the link, write a message, and pre-authorize a payment via Stripe
+3. Creator replies from their dashboard — payment is captured on reply
+4. No reply within 48h = payment automatically released
 
-## Run Locally
+## Stack
 
-**Prerequisites:**  Node.js
+- React + TypeScript + Vite
+- Firebase (Auth + Firestore)
+- Stripe Connect (escrow payments)
+- Tailwind CSS + shadcn/ui
+- Express server
 
+## Running locally
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. `npm install`
+2. Copy `.env.example` to `.env` and fill in your keys
+3. `npm run dev`
