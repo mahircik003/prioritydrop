@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Creator profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "displayName": { "type": "string" },
+        "bio": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "messagePrice": { "type": "number", "description": "Price per message in USD" },
+        "stripeAccountId": { "type": "string" },
+        "stripeOnboardingComplete": { "type": "boolean" },
+        "avgResponseTime": { "type": "number", "description": "Average response time in hours" },
+        "helpfulRating": { "type": "number", "description": "Percentage of helpful ratings" },
+        "totalRatings": { "type": "number" }
+      },
+      "required": ["uid", "username", "messagePrice"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A message sent to a creator",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderEmail": { "type": "string" },
+        "creatorUid": { "type": "string" },
+        "content": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "replied", "expired"] },
+        "paymentIntentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "repliedAt": { "type": "string", "format": "date-time" },
+        "replyContent": { "type": "string" },
+        "rating": { "type": "string", "enum": ["helpful", "notHelpful"] }
+      },
+      "required": ["senderEmail", "creatorUid", "content", "amount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Messages between senders and creators"
+    },
+    "/usernames/{username}": {
+      "schema": { "type": "object", "properties": { "uid": { "type": "string" } } },
+      "description": "Username to UID mapping for unique usernames"
+    }
+  }
+}
