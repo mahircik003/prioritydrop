@@ -2,7 +2,7 @@ import { Button } from '../components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { auth } from '../firebase';
-import { signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'sonner';
 import { MessageSquare, ShieldCheck, Clock } from 'lucide-react';
 
@@ -17,8 +17,9 @@ export default function Home() {
     }
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithRedirect(auth, provider);
-      // navigation happens after redirect returns via App.tsx
+      await signInWithPopup(auth, provider);
+      toast.success('Logged in successfully');
+      navigate('/dashboard');
     } catch (error: any) {
       toast.error(error.message);
     }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase';
-import { signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { Button } from './ui/button';
 import { LogIn, LogOut, LayoutDashboard, Zap } from 'lucide-react';
 import { toast } from 'sonner';
@@ -9,9 +9,12 @@ export default function Navbar({ user }: { user: any }) {
   const handleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithRedirect(auth, provider);
+      await signInWithPopup(auth, provider);
+      toast.success('Logged in successfully');
     } catch (error: any) {
-      toast.error(error.message);
+      if (error.code !== 'auth/popup-closed-by-user') {
+        toast.error(error.message);
+      }
     }
   };
 
